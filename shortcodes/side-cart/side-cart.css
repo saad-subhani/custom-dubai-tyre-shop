@@ -1,11 +1,11 @@
 .custom-dubai-side-cart__backdrop {
 	position: fixed;
 	inset: 0;
-	background: rgb(0 0 0 / 50%);
+	background: var(--color-side-cart-backdrop);
 	z-index: calc(var(--z-index-modal) - 1);
- opacity: 0;
+	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.3s ease, visibility 0.3s ease;
+	transition: opacity var(--motion-duration-normal) ease, visibility var(--motion-duration-normal) ease;
 }
 
 .custom-dubai-side-cart__backdrop.is-open {
@@ -18,7 +18,7 @@
 	top: 0;
 	right: 0;
 	width: 100%;
-	max-width: 420px;
+	max-width: var(--size-side-cart-width);
 	height: 100vh;
 	height: 100dvh;
 	background: var(--color-secondary);
@@ -26,8 +26,8 @@
 	display: flex;
 	flex-direction: column;
 	transform: translateX(100%);
-	transition: transform 0.3s ease;
-	box-shadow: -4px 0 24px rgb(0 0 0 / 12%);
+	transition: transform var(--motion-duration-normal) ease;
+	box-shadow: var(--shadow-side-cart-panel);
 }
 
 .custom-dubai-side-cart.is-open {
@@ -39,7 +39,7 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: var(--space-4) var(--space-6);
-	border-bottom: 1px solid var(--color-border);
+	border-bottom: var(--border-width) solid var(--color-border);
 	flex-shrink: 0;
 }
 
@@ -52,8 +52,8 @@
 }
 
 .custom-dubai-side-cart__close {
-	width: 36px;
-	height: 36px;
+	width: var(--size-side-cart-close-control);
+	height: var(--size-side-cart-close-control);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -62,7 +62,7 @@
 	cursor: pointer;
 	color: var(--color-text-light);
 	border-radius: var(--radius-sm);
-transition: background 0.15s ease, color 0.15s ease;
+	transition: background var(--motion-side-cart-hover) ease, color var(--motion-side-cart-hover) ease;
 }
 
 .custom-dubai-side-cart__close:hover {
@@ -71,8 +71,8 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__close svg {
-	width: 20px;
-	height: 20px;
+	width: var(--size-side-cart-icon-sm);
+	height: var(--size-side-cart-icon-sm);
 }
 
 .custom-dubai-side-cart__items {
@@ -95,8 +95,8 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__empty-icon {
-	width: 48px;
-	height: 48px;
+	width: var(--size-side-cart-empty-icon);
+	height: var(--size-side-cart-empty-icon);
 }
 
 .custom-dubai-side-cart__empty p {
@@ -109,14 +109,14 @@ transition: background 0.15s ease, color 0.15s ease;
 	display: flex;
 	gap: var(--space-3);
 	padding: var(--space-3);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-md);
 	background: var(--color-secondary);
 }
 
 .custom-dubai-side-cart__item-image {
-	width: 80px;
-	height: 80px;
+	width: var(--size-side-cart-item-image);
+	height: var(--size-side-cart-item-image);
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
@@ -178,29 +178,29 @@ transition: background 0.15s ease, color 0.15s ease;
 	color: var(--color-text-light);
 	padding: var(--space-1);
 	border-radius: var(--radius-sm);
-	transition: color 0.15s ease, background 0.15s ease;
+	transition: color var(--motion-side-cart-hover) ease, background var(--motion-side-cart-hover) ease;
 }
 
 .custom-dubai-side-cart__item-remove:hover {
 	color: var(--color-cta);
-	background: rgb(34 34 34 / 8%);
+	background: var(--color-side-cart-remove-hover);
 }
 
 .custom-dubai-side-cart__item-remove svg {
-	width: 16px;
-	height: 16px;
+	width: var(--size-side-cart-icon-xs);
+	height: var(--size-side-cart-icon-xs);
 }
 
 .custom-dubai-side-cart__item-qty {
 	display: flex;
 	align-items: center;
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-sm);
 }
 
 .custom-dubai-side-cart__qty-btn {
-	width: 28px;
-	height: 28px;
+	width: var(--size-side-cart-qty-btn);
+	height: var(--size-side-cart-qty-btn);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -211,7 +211,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	font-weight: var(--font-weight-semibold);
 	color: var(--color-text);
 	cursor: pointer;
- transition: background 0.15s ease;
+	transition: background var(--motion-side-cart-hover) ease;
 }
 
 .custom-dubai-side-cart__qty-btn:hover {
@@ -219,7 +219,7 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__qty-value {
-	min-width: 24px;
+	min-width: var(--size-side-cart-qty-value-min-width);
 	text-align: center;
 	font-family: var(--font-family-base);
 	font-size: var(--font-size-xs);
@@ -227,7 +227,7 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__summary {
-	border-top: 1px solid var(--color-border);
+	border-top: var(--border-width) solid var(--color-border);
 	padding: var(--space-4);
 	flex-shrink: 0;
 	display: flex;
@@ -239,13 +239,13 @@ transition: background 0.15s ease, color 0.15s ease;
 	display: flex;
 	gap: var(--space-2);
 	padding: var(--space-3);
-	background: rgb(219 234 254);
+	background: var(--color-side-cart-notice-background);
 	border-radius: var(--radius-md);
 }
 
 .custom-dubai-side-cart__notice-icon {
-	width: 20px;
-	height: 20px;
+	width: var(--size-side-cart-icon-sm);
+	height: var(--size-side-cart-icon-sm);
 	flex-shrink: 0;
 	color: var(--color-info);
 }
@@ -264,8 +264,8 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__promo-icon {
-	width: 18px;
-	height: 18px;
+	width: var(--size-side-cart-promo-icon);
+	height: var(--size-side-cart-promo-icon);
 	flex-shrink: 0;
 	align-self: center;
 	color: var(--color-text-light);
@@ -273,9 +273,9 @@ transition: background 0.15s ease, color 0.15s ease;
 
 .custom-dubai-side-cart__promo-input {
 	flex: 1;
-	height: 40px;
+	height: var(--size-side-cart-promo-input-height);
 	padding: 0 var(--space-3);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-sm);
 	font-family: var(--font-family-base);
 	font-size: var(--font-size-sm);
@@ -284,14 +284,14 @@ transition: background 0.15s ease, color 0.15s ease;
 }
 
 .custom-dubai-side-cart__promo-input:focus {
-	outline: 2px solid var(--color-accent-light);
-	outline-offset: -1px;
+	outline: var(--border-side-cart-focus-width) solid var(--color-accent-light);
+	outline-offset: var(--border-side-cart-focus-offset);
 	border-color: var(--color-accent);
 }
 
 .custom-dubai-side-cart__promo-btn {
 	padding: 0 var(--space-4);
-	height: 40px;
+	height: var(--size-side-cart-promo-btn-height);
 	background: var(--color-primary);
 	color: var(--color-secondary);
 	border: none;
@@ -301,7 +301,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	font-weight: var(--font-weight-semibold);
 	cursor: pointer;
 	flex-shrink: 0;
-	transition: background 0.15s ease;
+	transition: background var(--motion-side-cart-hover) ease;
 }
 
 .custom-dubai-side-cart__promo-btn:hover {
@@ -330,7 +330,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	font-weight: var(--font-weight-bold);
 	color: var(--color-text);
 	padding-top: var(--space-2);
-	border-top: 1px solid var(--color-border);
+	border-top: var(--border-width) solid var(--color-border);
 }
 
 .custom-dubai-side-cart__installments {
@@ -339,7 +339,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	justify-content: space-between;
 	gap: var(--space-3);
 	padding: var(--space-3);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-md);
 }
 
@@ -363,7 +363,7 @@ transition: background 0.15s ease, color 0.15s ease;
 
 .custom-dubai-side-cart__tabby-badge {
 	padding: var(--space-1) var(--space-2);
-	background: #4c1d95;
+	background: var(--color-side-cart-tabby-badge);
 	border-radius: var(--radius-sm);
 	flex-shrink: 0;
 }
@@ -377,7 +377,7 @@ transition: background 0.15s ease, color 0.15s ease;
 
 .custom-dubai-side-cart__checkout-btn {
 	width: 100%;
-	height: 48px;
+	height: var(--size-side-cart-checkout-height);
 	background: var(--color-cta);
 	color: var(--color-secondary);
 	border: none;
@@ -386,7 +386,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	font-size: var(--font-size-md);
 	font-weight: var(--font-weight-bold);
 	cursor: pointer;
-	transition: background 0.15s ease, transform 0.1s ease;
+	transition: background var(--motion-side-cart-hover) ease, transform var(--motion-side-cart-press) ease;
 }
 
 .custom-dubai-side-cart__checkout-btn:hover {
@@ -397,7 +397,7 @@ transition: background 0.15s ease, color 0.15s ease;
 	transform: scale(0.99);
 }
 
-@media (max-width: 480px) {
+@media (max-width: var(--breakpoint-xs)) {
 	.custom-dubai-side-cart {
 		max-width: 100%;
 	}

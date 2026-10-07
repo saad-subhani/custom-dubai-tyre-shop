@@ -3,9 +3,9 @@
    ============================================================ */
 .woocommerce #primary,
 .woocommerce-page #primary {
-    width: 100%;
+    width: var(--size-width-full);
     float: none;
-    padding: 30px 60px;
+    padding: var(--space-shop-grid-padding-block) var(--space-shop-grid-padding-inline);
     box-sizing: border-box;
 }
 
@@ -13,7 +13,7 @@
 .woocommerce-page ul.products {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: var(--space-shop-grid-gap);
     padding: 0;
     margin: 0;
     list-style: none;
@@ -29,21 +29,21 @@
 }
 
 /* Responsive breakpoints */
-@media (max-width: 1200px) {
+@media (max-width: var(--breakpoint-xl)) {
     .woocommerce ul.products,
     .woocommerce-page ul.products { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 860px) {
+@media (max-width: var(--breakpoint-shop-grid)) {
     .woocommerce ul.products,
     .woocommerce-page ul.products { grid-template-columns: repeat(2, 1fr); }
     .woocommerce #primary,
-    .woocommerce-page #primary { padding: 20px; }
+    .woocommerce-page #primary { padding: var(--space-shop-grid-padding-compact); }
 }
-@media (max-width: 520px) {
+@media (max-width: var(--breakpoint-shop-grid-mobile)) {
     .woocommerce ul.products,
     .woocommerce-page ul.products { grid-template-columns: 1fr; }
     .woocommerce #primary,
-    .woocommerce-page #primary { padding: 14px; }
+    .woocommerce-page #primary { padding: var(--space-shop-grid-padding-mobile); }
 }
 
 /* ============================================================
@@ -54,18 +54,18 @@
 .tyre-card-inner {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
+    height: var(--size-height-full);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-reference-product-card);
     background: var(--color-white);
     overflow: hidden;
-    font-family: var(--font-family-inter);
-    transition: box-shadow 0.2s, transform 0.2s;
+    font-family: var(--font-family-base);
+    transition: box-shadow var(--motion-reference-product-card), transform var(--motion-reference-product-card);
 }
 
 .tyre-card-inner:hover {
-    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-reference-product-card-hover);
+    transform: translateY(var(--motion-reference-product-card-lift));
 }
 
 /* ── Promo ribbon (always in DOM — hidden slot keeps height equal) ── */
@@ -74,9 +74,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: var(--font-size-reference-product-card-promo);
     font-weight: var(--font-weight-800);
-    letter-spacing: 0.6px;
+    letter-spacing: var(--tracking-reference-product-card-promo);
     text-transform: uppercase;
     color: transparent;
     background: transparent;
@@ -86,7 +86,7 @@
 }
 
 .tyre-promo-slot.is-active {
-    height: 28px;
+    height: var(--size-reference-product-card-promo-height);
     color: var(--color-white);
     background: var(--color-primary-gradient);
     pointer-events: auto;
@@ -96,18 +96,18 @@
 /* ── Tyre Image ── */
 .tyre-image-wrap {
     position: relative;
-    padding: 12px 16px;
+    padding: var(--space-3) var(--space-4);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 140px;
-    background: #fff;
+    min-height: var(--size-reference-product-card-image-min-height);
+    background: var(--color-secondary);
 }
 
 .tyre-img-spinner {
     position: absolute;
     color: var(--color-primary);
-    --pl-size: 30px;
+    --pl-size: var(--size-reference-product-card-spinner);
     opacity: 0.9;
     z-index: 0;
 }
@@ -119,15 +119,15 @@
 .tyre-image-wrap a {
     display: flex;
     justify-content: center;
-    width: 100%;
+    width: var(--size-width-full);
     position: relative;
     z-index: 1;
 }
 
 .tyre-image-wrap img {
-    max-width: 100%;
+    max-width: var(--size-width-full);
     height: auto;
-    max-height: 130px;
+    max-height: var(--size-reference-product-card-image-max-height);
     object-fit: contain;
     display: block;
 }
@@ -135,42 +135,42 @@
 /* Badges container */
 .tyre-badges {
     position: absolute;
-    top: 6px;
-    left: 6px;
+    top: var(--space-reference-product-card-badge-offset);
+    left: var(--space-reference-product-card-badge-offset);
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: var(--space-1);
 }
 
 /* Badge base */
 .tyre-badge {
     position: relative;
-    background: #28a745;
+    background: var(--color-reference-product-card-badge);
     color: var(--color-white);
-    font-size: 10px;
+    font-size: var(--font-size-reference-product-card-badge);
     font-weight: var(--font-weight-800);
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-reference-product-card-badge);
     line-height: 1.2;
     display: flex;
     align-items: center;
-    gap: 4px;
-    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    gap: var(--space-1);
+    box-shadow: var(--shadow-reference-product-card-badge);
     text-transform: uppercase;
 }
 
 .tyre-badge-icon {
     flex-shrink: 0;
-    width: 10px;
+    width: var(--size-reference-product-card-badge-icon-width);
     height: auto;
 }
 
 /* Run flat badge */
 .tyre-badge-rf {
        background: var(--color-primary);
-       box-shadow: 0 2px 6px rgb(0 0 0 / 30%);
+       box-shadow: var(--shadow-reference-product-card-runflat);
    }
 
 /* Brand logo badge */
@@ -181,43 +181,43 @@
 }
 .tyre-badge-brand img {
     display: block;
-    max-height: 36px;
+    max-height: var(--size-reference-product-card-brand-logo-max-height);
     width: auto;
 }
 
 /* Warranty badge — smaller */
 .tyre-badge-warranty {
-    font-size: 8px;
-    padding: 2px 5px;
+    font-size: var(--font-size-reference-product-card-badge-compact);
+    padding: var(--space-reference-product-card-badge-compact-padding-block) var(--space-reference-product-card-badge-compact-padding-inline);
 }
 .tyre-badge-warranty .tyre-badge-icon {
-    width: 7px;
+    width: var(--size-reference-product-card-badge-icon-compact-width);
 }
 
 /* Run flat badge — narrower than warranty */
 .tyre-badge-rf {
-    font-size: 8px;
-    padding: 2px 5px;
+    font-size: var(--font-size-reference-product-card-badge-compact);
+    padding: var(--space-reference-product-card-badge-compact-padding-block) var(--space-reference-product-card-badge-compact-padding-inline);
 }
 .tyre-badge-rf .tyre-badge-icon {
-    width: 7px;
+    width: var(--size-reference-product-card-badge-icon-compact-width);
 }
 
 /* ── Title / Size ── */
 .tyre-title-wrap {
-    padding: 10px 12px 8px;
+    padding: var(--space-reference-product-card-title-padding-block-start) var(--space-3) var(--space-2);
     text-align: center;
     background: var(--color-white);
 }
 
 .tyre-title {
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-400);
     color: var(--color-dark-grey);
-    margin: 0 0 3px 0;
+    margin: 0 0 var(--space-reference-product-card-title-margin-bottom) 0;
     line-height: 1.4;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: var(--tracking-reference-product-card-title);
 }
 
 .tyre-title a {
@@ -228,14 +228,14 @@
 .tyre-title a:hover { color: var(--color-primary); }
 
 .tyre-size {
-    font-size: 15px;
+    font-size: var(--font-size-reference-product-card-size);
     font-weight: var(--font-weight-800);
     color: var(--color-black);
     line-height: 1.2;
     display: flex;
     align-items: baseline;
     justify-content: center;
-    gap: 2px;
+    gap: var(--space-reference-product-card-size-gap);
     flex-wrap: wrap;
 }
 
@@ -244,14 +244,14 @@
 }
 
 .tyre-size-sep {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     color: var(--color-medium-grey);
     font-weight: var(--font-weight-400);
-    margin: 0 1px;
+    margin: 0 var(--space-reference-product-card-size-separator-margin);
 }
 
 .tyre-size-suffix {
-    font-size: 11px;
+    font-size: var(--font-size-reference-product-card-size-suffix);
     font-weight: var(--font-weight-500);
     color: var(--color-dark-grey);
     white-space: nowrap;
@@ -261,10 +261,10 @@
 .tyre-specs-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 8px 0;
-    margin: 0 8px;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
+    padding: var(--space-2) 0;
+    margin: 0 var(--space-2);
+    border-top: var(--border-width) solid var(--color-reference-product-card-divider);
+    border-bottom: var(--border-width) solid var(--color-reference-product-card-divider);
     background: var(--color-white);
 }
 
@@ -272,9 +272,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    border-right: 1px solid #f0f0f0;
-    padding: 0 4px;
+    gap: var(--space-1);
+    border-right: var(--border-width) solid var(--color-reference-product-card-divider);
+    padding: 0 var(--space-1);
     min-width: 0;
 }
 .tyre-spec-item:last-child {
@@ -290,11 +290,11 @@
 }
 
 .tyre-spec-icon svg {
-    width: 16px;
-    height: 16px;
+    width: var(--size-reference-product-card-spec-icon);
+    height: var(--size-reference-product-card-spec-icon);
 }
 .tyre-spec-icon.tyre-spec-flag {
-    font-size: 16px;
+    font-size: var(--font-size-reference-product-card-spec-flag);
 }
 
 .tyre-spec-info {
@@ -305,15 +305,15 @@
 }
 
 .tyre-spec-label {
-    font-size: 8px;
+    font-size: var(--font-size-reference-product-card-spec-label);
     font-weight: var(--font-weight-600);
     color: var(--color-medium-grey);
     text-transform: uppercase;
-    margin-bottom: 1px;
+    margin-bottom: var(--space-reference-product-card-spec-label-margin-bottom);
 }
 
 .tyre-spec-val {
-    font-size: 10px;
+    font-size: var(--font-size-reference-product-card-spec-value);
     font-weight: var(--font-weight-800);
     color: var(--color-black);
     text-transform: uppercase;
@@ -333,31 +333,31 @@
 
 .tyre-price-row {
     display: flex;
-    margin: 10px 8px;
-    border: 1px solid #f0e6d6;
-    border-radius: 8px;
-    background: #fffcf8;
+    margin: var(--space-reference-product-card-price-margin-block) var(--space-2);
+    border: var(--border-width) solid var(--color-reference-product-card-price-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-reference-product-card-price-background);
 }
 
 .tyre-price-left {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: 8px;
-    gap: 6px;
-    border-right: 1px dashed #e6dbca;
+    padding: var(--space-2);
+    gap: var(--space-reference-product-card-price-gap);
+    border-right: var(--border-width) dashed var(--color-reference-product-card-price-divider);
     min-width: 0;
 }
 
 .tyre-price-icon {
     flex-shrink: 0;
-    background: #fff;
-    padding: 3px;
-    border-radius: 4px;
+    background: var(--color-secondary);
+    padding: var(--space-reference-product-card-price-icon-padding);
+    border-radius: var(--radius-reference-product-card-badge);
 }
 
 .tyre-price-icon img {
-    width: 18px;
+    width: var(--size-reference-product-card-price-icon);
     height: auto;
     opacity: 0.9;
     display: block;
@@ -370,7 +370,7 @@
 }
 
 .tyre-price-title {
-    font-size: 9px;
+    font-size: var(--font-size-reference-product-card-price-title);
     font-weight: var(--font-weight-800);
     color: var(--color-black);
     line-height: 1.2;
@@ -382,71 +382,71 @@
 }
 
 .tyre-price-note {
-    font-size: 8px;
+    font-size: var(--font-size-reference-product-card-price-note);
     color: var(--color-medium-grey);
-    margin-top: 2px;
+    margin-top: var(--space-reference-product-card-price-note-margin-top);
 }
 
 .tyre-price-right {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 8px 10px;
+    padding: var(--space-2) var(--space-reference-product-card-price-padding-inline-end);
     flex-shrink: 0;
 }
 
 .tyre-price-currency {
-    font-size: 10px;
+    font-size: var(--font-size-reference-product-card-price-currency);
     font-weight: var(--font-weight-800);
-    color: #11813A;
+    color: var(--color-reference-product-card-price);
     line-height: 1;
 }
 
 .tyre-price-amount {
-    font-size: 18px;
+    font-size: var(--font-size-md);
     font-weight: var(--font-weight-800);
-    color: #11813A;
+    color: var(--color-reference-product-card-price);
     line-height: 1;
-    margin: 2px 0;
+    margin: var(--space-reference-product-card-price-amount-margin-block) 0;
 }
 
 .tyre-price-vat {
-    font-size: 8px;
+    font-size: var(--font-size-reference-product-card-price-vat);
     font-weight: var(--font-weight-600);
     color: var(--color-medium-grey);
 }
 
 /* ── Set of N row ── */
 .tyre-set-row {
-    padding: 0 8px 10px;
+    padding: 0 var(--space-2) var(--space-reference-product-card-set-padding-bottom);
     background: var(--color-white);
 }
 
 .tyre-set-inner {
-    background: #eef5ef;
-    color: #2e4d36;
-    border-radius: 6px;
-    padding: 6px;
+    background: var(--color-reference-product-card-set-background);
+    color: var(--color-reference-product-card-set);
+    border-radius: var(--radius-reference-product-card-set);
+    padding: var(--space-reference-product-card-set-padding);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: var(--font-size-reference-product-card-set);
     font-weight: var(--font-weight-600);
 }
 
 .tyre-set-inner strong {
     font-weight: var(--font-weight-800);
-    color: #2e4d36;
-    margin-left: 4px;
+    color: var(--color-reference-product-card-set);
+    margin-left: var(--space-reference-product-card-set-strong-margin);
 }
 
 /* ── Add to cart bar ── */
 .tyre-add-to-cart-wrap {
     display: flex;
     align-items: stretch;
-    height: 46px;
-    background: #2b2b2b;
-    border-radius: 0 0 10px 10px;
+    height: var(--size-reference-product-card-atc-bar-height);
+    background: var(--color-reference-product-card-atc-bar);
+    border-radius: 0 0 var(--radius-reference-product-card) var(--radius-reference-product-card);
     overflow: hidden;
     border-top: none;
     margin-top: auto;
@@ -456,9 +456,9 @@
 .tyre-qty-panel {
     display: flex;
     align-items: center;
-    background: #1a1a1a;
-    border-right: 1px solid #3d3d3d;
-    padding: 0 6px 0 10px;
+    background: var(--color-reference-product-card-qty);
+    border-right: var(--border-width) solid var(--color-reference-product-card-qty-border);
+    padding: 0 var(--space-reference-product-card-qty-padding-inline-end) 0 var(--space-reference-product-card-qty-padding-inline-start);
     flex-shrink: 0;
     cursor: pointer;
     position: relative;
@@ -468,26 +468,26 @@
     background: transparent;
     border: none;
     color: var(--color-white);
-    font-family: var(--font-family-inter);
-    font-size: 15px;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-reference-product-card-qty);
     font-weight: var(--font-weight-600);
     padding: 0;
     cursor: pointer;
     outline: none;
     appearance: none;
     -webkit-appearance: none;
-    width: 26px;
+    width: var(--size-reference-product-card-qty-select-width);
     text-align: center;
 }
 
 .tyre-qty-select option {
-    background: #1a1a1a;
+    background: var(--color-reference-product-card-qty);
     color: var(--color-white);
 }
 
 .tyre-qty-chevron {
-    width: 12px;
-    height: 8px;
+    width: var(--size-reference-product-card-qty-chevron-width);
+    height: var(--size-reference-product-card-qty-chevron-height);
     fill: var(--color-white);
     pointer-events: none;
     flex-shrink: 0;
@@ -499,26 +499,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: var(--space-reference-product-card-atc-gap);
     background: var(--color-primary);
     color: var(--color-white);
-    font-family: var(--font-family-inter);
-    font-size: 11px;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-reference-product-card-atc);
     font-weight: var(--font-weight-800);
-    letter-spacing: 0.7px;
+    letter-spacing: var(--tracking-reference-product-card-atc);
     text-transform: uppercase;
     text-decoration: none;
     border: none;
     border-radius: 0;
     cursor: pointer;
-    padding: 0 10px;
-    transition: background 0.18s;
+    padding: 0 var(--space-reference-product-card-atc-padding-inline);
+    transition: background var(--motion-duration-fast);
     box-sizing: border-box;
 }
 
 .tyre-atc-btn .atc-cart-icon {
-    width: 15px;
-    height: 15px;
+    width: var(--size-reference-product-card-atc-icon);
+    height: var(--size-reference-product-card-atc-icon);
     fill: var(--color-white);
     flex-shrink: 0;
 }
@@ -534,26 +534,26 @@
 }
 
 .tyre-atc-full {
-    border-radius: 0 0 10px 10px;
-    width: 100%;
+    border-radius: 0 0 var(--radius-reference-product-card) var(--radius-reference-product-card);
+    width: var(--size-width-full);
 }
 
 /* ── "Added" state after successful add-to-cart ── */
 .tyre-atc-btn.is-added {
-    background: #2a7a3b;
+    background: var(--color-reference-product-card-atc-added);
     pointer-events: none;           /* prevent double-click */
 }
 
 .tyre-atc-btn.is-added:hover,
 .tyre-atc-btn.is-added:focus {
-    background: #2a7a3b;
+    background: var(--color-reference-product-card-atc-added);
     color: var(--color-white);
 }
 
 .tyre-atc-btn .atc-tick {
     display: none;
-    width: 14px;
-    height: 14px;
+    width: var(--size-reference-product-card-atc-tick);
+    height: var(--size-reference-product-card-atc-tick);
     fill: none;
     stroke: var(--color-white);
     stroke-width: 2.5;
@@ -576,7 +576,7 @@
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(0,0,0,0.5);
+    background: var(--color-tyre-modal-backdrop);
     align-items: center;
     justify-content: center;
 }
@@ -585,12 +585,12 @@
 }
 .tsad-popup-wrap {
     background: var(--color-white);
-    border-radius: 12px;
-    max-width: 440px;
-    width: 90%;
+    border-radius: var(--radius-md);
+    max-width: var(--size-tyre-modal-max-width);
+    width: var(--size-tyre-modal-width);
     position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    animation: tsad-popup-in 0.2s ease-out;
+    box-shadow: var(--shadow-tyre-modal);
+    animation: tsad-popup-in var(--motion-tyre-modal) ease-out;
 }
 @keyframes tsad-popup-in {
     from { transform: scale(0.95); opacity: 0; }
@@ -598,81 +598,81 @@
 }
 .tsad-popup-close {
     position: absolute;
-    top: 10px;
-    right: 14px;
+    top: var(--space-tyre-modal-close-top);
+    right: var(--space-tyre-modal-close-right);
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: var(--font-size-xl);
     cursor: pointer;
     color: var(--color-medium-grey);
     line-height: 1;
-    padding: 4px;
+    padding: var(--space-1);
 }
 .tsad-popup-close:hover { color: var(--color-black); }
 .tsad-popup-body {
-    padding: 30px 28px 24px;
+    padding: var(--space-tyre-modal-body-padding-top) var(--space-tyre-modal-body-padding-inline) var(--space-6);
 }
 .tsad-popup-title {
-    margin: 0 0 12px;
-    font-size: 18px;
+    margin: 0 0 var(--space-3);
+    font-size: var(--font-size-md);
     font-weight: var(--font-weight-800);
 }
 .tsad-popup-body p {
-    font-size: 13px;
+    font-size: var(--font-size-tyre-modal-copy);
     color: var(--color-dark-grey);
     line-height: 1.5;
-    margin: 0 0 10px;
+    margin: 0 0 var(--space-tyre-modal-body-margin-bottom);
 }
 .tsad-popup-subtitle {
     font-weight: var(--font-weight-800);
-    margin-bottom: 10px;
+    margin-bottom: var(--space-tyre-modal-body-margin-bottom);
 }
 
 .tyre-set-icon {
-    margin-right: 4px;
+    margin-right: var(--space-1);
 }
 
 .tsad-popup-list {
-    margin: 0 0 14px;
+    margin: 0 0 var(--space-tyre-modal-list-margin-bottom);
     padding: 0;
     list-style: none;
 }
 .tsad-popup-list li {
-    font-size: 13px;
+    font-size: var(--font-size-tyre-modal-copy);
     color: var(--color-dark-grey);
-    padding: 3px 0 3px 18px;
+    padding: var(--space-tyre-modal-list-padding-block) 0 var(--space-tyre-modal-list-padding-block) var(--space-tyre-modal-list-padding-inline-start);
     position: relative;
 }
 .tsad-popup-list li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 9px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+    top: var(--space-tyre-modal-list-marker-top);
+    width: var(--size-tyre-modal-list-marker);
+    height: var(--size-tyre-modal-list-marker);
+    border-radius: var(--radius-tyre-modal-list-marker);
     background: var(--color-primary);
 }
 .tsad-popup-note {
-    font-size: 11px;
+    font-size: var(--font-size-tyre-modal-note);
     color: var(--color-medium-grey);
     font-style: italic;
 }
 
 /* ── Utilities ── */
-.w-100 { width: 100% !important; }
-.tsad-country-flag { font-size: 1.1em; vertical-align: middle; }
+.w-100 { width: var(--size-width-full) !important; }
+.tsad-country-flag { font-size: var(--font-size-tyre-modal-flag); vertical-align: middle; }
 .brand-fallback-text {
     font-style: italic;
     font-weight: var(--font-weight-800);
-    font-size: 15px;
-    letter-spacing: 1px;
+    font-size: var(--font-size-reference-product-card-brand-fallback);
+    letter-spacing: var(--tracking-reference-product-card-brand-fallback);
 }
 
 /* WooCommerce notices */
 .woocommerce .woocommerce-result-count,
 .woocommerce-page .woocommerce-result-count {
-    font-size: 13px;
+    font-size: var(--font-size-shop-result-count);
     color: var(--color-dark-grey);
-    margin-bottom: 14px;
+    margin-bottom: var(--space-shop-result-count-margin-bottom);
 }

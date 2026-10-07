@@ -3,10 +3,10 @@
 }
 
 .custom-dubai-tyre-modal .custom-dubai-modal__option {
-	min-height: 4rem;
+	min-height: var(--size-tyre-modal-option-min-height);
 }
 
-@media (max-width: 760px) {
+@media (max-width: var(--breakpoint-modal-compact)) {
 	.custom-dubai-tyre-modal .custom-dubai-modal__options {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}

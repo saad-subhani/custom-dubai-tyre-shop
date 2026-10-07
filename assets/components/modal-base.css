@@ -18,14 +18,14 @@
 	width: 100%;
 	border: 0;
 	background: var(--color-modal-backdrop);
-	backdrop-filter: blur(5px);
+	backdrop-filter: blur(var(--blur-modal-backdrop));
 	cursor: default;
 }
 
 .custom-dubai-modal__panel {
 	position: relative;
 	display: flex;
-	width: min(100%, 75rem);
+	width: min(100%, var(--size-modal-panel-max-width));
 	max-height: calc(100dvh - var(--space-8));
 	flex-direction: column;
 	overflow: hidden;
@@ -37,7 +37,7 @@
 
 .custom-dubai-modal__header {
 	display: flex;
-	min-height: 5rem;
+	min-height: var(--size-modal-header-min-height);
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--space-4);
@@ -65,7 +65,7 @@
 	flex: 0 0 auto;
 	place-items: center;
 	border: 0;
-	border-radius: 50%;
+	border-radius: var(--radius-modal-circle);
 	background: var(--color-primary);
 	color: var(--color-secondary);
 	cursor: pointer;
@@ -98,7 +98,7 @@
 }
 
 .custom-dubai-modal__body {
-	min-height: 12rem;
+	min-height: var(--size-modal-body-min-height);
 	overflow: auto;
 	padding: var(--space-6);
 }
@@ -109,8 +109,8 @@
 }
 
 .custom-dubai-modal__option {
-	min-height: 3.5rem;
-	border: 2px solid var(--color-border);
+	min-height: var(--size-modal-option-min-height);
+	border: var(--border-modal-option-width) solid var(--color-border);
 	border-radius: var(--radius-md);
 	background: var(--color-background);
 	color: var(--color-text);
@@ -131,26 +131,26 @@
 .custom-dubai-modal__step:focus-visible,
 .custom-dubai-modal__option:focus-visible,
 .custom-dubai-vehicle-modal__search:focus-visible {
-	outline: 2px solid var(--color-accent-dark);
-	outline-offset: 2px;
+	outline: var(--border-modal-focus-width) solid var(--color-accent-dark);
+	outline-offset: var(--border-modal-focus-offset);
 }
 
 .screen-reader-text {
 	position: absolute;
-	width: 1px;
-	height: 1px;
+	width: var(--size-screen-reader-text);
+	height: var(--size-screen-reader-text);
 	padding: 0;
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
-	clip-path: inset(50%);
+	clip-path: inset(var(--size-screen-reader-clip-inset));
 }
 
 body.custom-dubai-modal-open {
 	overflow: hidden;
 }
 
-@media (max-width: 640px) {
+@media (max-width: var(--breakpoint-sm)) {
 	.custom-dubai-modal {
 		padding: 0;
 	}
@@ -163,7 +163,7 @@ body.custom-dubai-modal-open {
 	}
 
 	.custom-dubai-modal__header {
-		min-height: 4.5rem;
+		min-height: var(--size-modal-header-min-height-mobile);
 		padding: var(--space-3) var(--space-4);
 	}
 

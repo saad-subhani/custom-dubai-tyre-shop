@@ -29,7 +29,7 @@
 
 .custom-dubai-shop__grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(var(--size-shop-grid-min-column), 1fr));
 	gap: var(--space-4);
 }
 
@@ -45,7 +45,7 @@
 	padding: var(--space-12) 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: var(--breakpoint-sm)) {
 	.custom-dubai-shop__grid {
 		grid-template-columns: 1fr;
 	}

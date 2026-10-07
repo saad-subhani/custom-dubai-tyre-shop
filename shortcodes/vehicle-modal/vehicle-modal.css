@@ -6,7 +6,7 @@
 	width: 100%;
 	min-height: var(--space-12);
 	padding: var(--space-3) var(--space-4);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-sm);
 	background: var(--color-background);
 	color: var(--color-text);
@@ -19,7 +19,7 @@
 }
 
 .custom-dubai-vehicle-modal__option {
-	min-height: 6rem;
+	min-height: var(--size-vehicle-modal-option-min-height);
 }
 
 .custom-dubai-vehicle-modal__empty {
@@ -30,7 +30,7 @@
 	text-align: center;
 }
 
-@media (max-width: 760px) {
+@media (max-width: var(--breakpoint-modal-compact)) {
 	.custom-dubai-vehicle-modal__search-wrap {
 		padding: var(--space-3) var(--space-4) 0;
 	}
@@ -40,6 +40,6 @@
 	}
 
 	.custom-dubai-vehicle-modal__option {
-		min-height: 4.5rem;
+		min-height: var(--size-vehicle-modal-option-min-height-mobile);
 	}
 }

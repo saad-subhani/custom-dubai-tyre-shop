@@ -23,7 +23,7 @@
 	color: var(--color-accent);
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-semibold);
-	letter-spacing: 0.12em;
+	letter-spacing: var(--tracking-globe-eyebrow);
 	text-transform: uppercase;
 }
 
@@ -59,11 +59,11 @@
 
 .custom-dubai-globe-section__point::before {
 	flex: none;
-	width: 0.55rem;
-	height: 0.3rem;
-	margin-top: 0.4rem;
-	border-bottom: 2px solid var(--color-accent);
-	border-left: 2px solid var(--color-accent);
+	width: var(--size-globe-point-marker-width);
+	height: var(--size-globe-point-marker-height);
+	margin-top: var(--space-globe-point-marker-offset);
+	border-bottom: var(--border-globe-point-marker-width) solid var(--color-accent);
+	border-left: var(--border-globe-point-marker-width) solid var(--color-accent);
 	transform: rotate(-45deg);
 	content: "";
 }
@@ -94,7 +94,7 @@
 .custom-dubai-globe-section__link {
 	color: var(--color-text);
 	text-decoration: underline;
-	text-underline-offset: 0.25rem;
+	text-underline-offset: var(--space-globe-link-underline-offset);
 }
 
 .custom-dubai-globe-section__link:hover,
@@ -104,14 +104,14 @@
 
 .custom-dubai-globe-section__button:focus-visible,
 .custom-dubai-globe-section__link:focus-visible {
-	outline: 2px solid var(--color-accent-light);
-	outline-offset: 3px;
+	outline: var(--border-globe-focus-width) solid var(--color-accent-light);
+	outline-offset: var(--space-globe-focus-offset);
 }
 
-/* Globe host. The glow doubles as the placeholder before WebGL takes over. */
+/* Globe host */
 .custom-dubai-globe-section__globe {
 	position: relative;
-	width: min(100%, 28rem);
+	width: var(--size-globe-width);
 	justify-self: center;
 	aspect-ratio: 1;
 	background: transparent;
@@ -128,7 +128,7 @@
 	height: 100%;
 }
 
-/* Overlay the globe engine projects the emirate names onto. */
+/* Overlay the globe engine projects the emirate pins onto */
 .custom-dubai-globe-section__labels {
 	position: absolute;
 	inset: 0;
@@ -136,55 +136,210 @@
 	pointer-events: none;
 }
 
+/* --------------------------------------------------------------------------
+   Interactive SVG Pinned Markers
+   -------------------------------------------------------------------------- */
 .custom-dubai-globe-section__pin {
-	display: block;
-	margin-left: 3.5rem;
-	padding: var(--space-1) var(--space-3);
-	border: 1px solid var(--color-globe-section-line);
-	border-radius: var(--radius-sm);
-	background: var(--color-globe-section-panel);
-	color: var(--color-secondary);
-	font-size: var(--font-size-sm);
-	font-weight: var(--font-weight-semibold);
-	line-height: 1.5;
-	white-space: nowrap;
-	transition: opacity 240ms ease;
+	position: relative;
+	display: flex;
+	align-items: center;
+	pointer-events: auto;
+	cursor: pointer;
+	user-select: none;
+	transition: opacity 300ms ease, transform 200ms ease;
 }
 
-.custom-dubai-globe-section__pin::before {
-	display: inline-block;
-	width: 0.4rem;
-	height: 0.4rem;
-	margin-right: var(--space-2);
+/* Pin Anchor: Tip points exactly at 3D map coordinates */
+.custom-dubai-globe-section__pin-anchor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(-50%, -100%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	z-index: 2;
+}
+
+.custom-dubai-globe-section__pin-svg {
+	width: var(--size-globe-pin-width);
+	height: var(--size-globe-pin-height);
+	display: block;
+	filter: drop-shadow(var(--shadow-globe-pin));
+	transition: transform 180ms ease;
+}
+
+.custom-dubai-globe-section__pin:hover .custom-dubai-globe-section__pin-svg {
+	transform: scale(1.22) translateY(var(--space-globe-pin-hover-offset));
+}
+
+.custom-dubai-globe-section__pin-pulse {
+	position: absolute;
+	bottom: var(--space-globe-pin-pulse-offset);
+	left: 50%;
+	transform: translateX(-50%);
+	width: var(--size-globe-pin-pulse-width);
+	height: var(--size-globe-pin-pulse-height);
 	border-radius: 50%;
-	background: var(--color-globe-highlight-edge);
-	content: "";
+	background: var(--color-globe-pin-pulse);
+	animation: dtsPinPulse 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+	pointer-events: none;
+}
+
+@keyframes dtsPinPulse {
+	0% {
+		transform: translateX(-50%) scale(0.5);
+		opacity: 0.9;
+	}
+	100% {
+		transform: translateX(-50%) scale(2.8);
+		opacity: 0;
+	}
+}
+
+/* Glassmorphism Name Badge with UAE Flag */
+.custom-dubai-globe-section__pin-card {
+	position: absolute;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-globe-pin-card-gap);
+	padding: var(--space-globe-pin-card-padding);
+	background: var(--color-globe-pin-card);
+	backdrop-filter: blur(var(--space-globe-pin-card-blur));
+	-webkit-backdrop-filter: blur(var(--space-globe-pin-card-blur));
+	border: var(--border-width) solid var(--color-globe-pin-card-border);
+	border-radius: var(--radius-globe-pin-card);
+	color: var(--color-secondary);
+	box-shadow: var(--shadow-globe-pin-card);
+	white-space: nowrap;
+	transition: all 180ms ease;
+	z-index: 3;
+}
+
+.custom-dubai-globe-section__pin:hover .custom-dubai-globe-section__pin-card {
+	background: var(--color-globe-pin-card-hover);
+	border-color: var(--color-accent);
+	box-shadow: var(--shadow-globe-pin-card-hover);
+	transform: scale(1.08);
+}
+
+/* UAE Mini Flag Icon */
+.custom-dubai-globe-section__pin-flag {
+	display: flex;
+	width: var(--size-globe-flag-width);
+	height: var(--size-globe-flag-height);
+	border-radius: var(--radius-globe-flag);
+	overflow: hidden;
+	flex-shrink: 0;
+	box-shadow: var(--shadow-globe-flag);
+}
+
+.custom-dubai-globe-section__pin-flag .flag-red {
+	width: var(--space-globe-flag-stripe-width);
+	height: 100%;
+	background: var(--color-globe-flag-red);
+}
+
+.custom-dubai-globe-section__pin-flag .flag-stripes {
+	width: var(--space-globe-flag-stripes-width);
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.custom-dubai-globe-section__pin-flag .flag-green {
+	height: var(--space-globe-flag-stripe);
+	background: var(--color-globe-flag-green);
+}
+
+.custom-dubai-globe-section__pin-flag .flag-white {
+	height: var(--space-globe-flag-stripe);
+	background: var(--color-secondary);
+}
+
+.custom-dubai-globe-section__pin-flag .flag-black {
+	height: var(--space-globe-flag-stripe-last);
+	background: var(--color-globe-flag-black);
+}
+
+.custom-dubai-globe-section__pin-text {
+	font-family: var(--font-family-heading);
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-bold);
+	letter-spacing: var(--tracking-globe-pin-text);
+	line-height: 1;
+}
+
+.custom-dubai-globe-section__pin-hub-tag {
+	background: var(--color-globe-flag-red);
+	color: var(--color-secondary);
+	font-size: var(--font-size-globe-pin-hub-tag);
+	font-weight: var(--font-weight-bold);
+	padding: var(--space-globe-pin-hub-tag-padding);
+	border-radius: var(--radius-globe-pin-hub-tag);
+	text-transform: uppercase;
+	letter-spacing: var(--tracking-globe-pin-hub-tag);
+	line-height: 1.2;
 }
 
 /*
- * The seven emirates sit within a degree of each other, so the names are fanned
- * into a north-to-south column beside the pin cluster rather than stacked on
- * top of it. Order follows the coast: Ras Al Khaimah is the northernmost.
+ * Fan-out positioning so labels don't collide or stack into a solid wall
  */
-.custom-dubai-globe-section__pin--ras-al-khaimah { margin-top: -5.5rem; }
-.custom-dubai-globe-section__pin--umm-al-quwain { margin-top: -3.7rem; }
-.custom-dubai-globe-section__pin--ajman { margin-top: -1.9rem; }
-.custom-dubai-globe-section__pin--sharjah { margin-top: -0.1rem; }
-.custom-dubai-globe-section__pin--dubai { margin-top: 1.7rem; }
-.custom-dubai-globe-section__pin--fujairah { margin-top: 3.5rem; }
-.custom-dubai-globe-section__pin--abu-dhabi { margin-top: 5.3rem; }
-
-/* Wide view of the planet: the names would just be clutter. */
-.custom-dubai-globe-section__canvas[data-globe-zoom="far"] .custom-dubai-globe-section__pin {
-	opacity: 0;
+.custom-dubai-globe-section__pin--ras-al-khaimah .custom-dubai-globe-section__pin-card {
+	bottom: calc(100% + var(--space-globe-pin-offset-ras-al-khaimah));
+	left: 50%;
+	transform: translateX(-50%);
 }
 
-/* No WebGL, or the engine chunk could not be fetched. */
+.custom-dubai-globe-section__pin--umm-al-quwain .custom-dubai-globe-section__pin-card {
+	bottom: calc(100% + var(--space-1));
+	left: 100%;
+	transform: translateX(var(--space-1));
+}
+
+.custom-dubai-globe-section__pin--ajman .custom-dubai-globe-section__pin-card {
+	top: var(--space-globe-pin-offset-ajman);
+	left: 100%;
+	transform: translateX(var(--space-globe-pin-nudge));
+}
+
+.custom-dubai-globe-section__pin--sharjah .custom-dubai-globe-section__pin-card {
+	top: var(--space-2);
+	left: 100%;
+	transform: translateX(var(--space-globe-pin-nudge));
+}
+
+.custom-dubai-globe-section__pin--dubai .custom-dubai-globe-section__pin-card {
+	top: var(--space-globe-pin-offset-dubai);
+	left: 100%;
+	transform: translateX(var(--space-2));
+	border-color: var(--color-globe-pin-border-dubai);
+}
+
+.custom-dubai-globe-section__pin--fujairah .custom-dubai-globe-section__pin-card {
+	top: var(--space-12);
+	left: 100%;
+	transform: translateX(var(--space-1));
+}
+
+.custom-dubai-globe-section__pin--abu-dhabi .custom-dubai-globe-section__pin-card {
+	top: calc(100% + var(--space-globe-pin-nudge));
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* Wide view of planet: hide pins until scrolled closer */
+.custom-dubai-globe-section__canvas[data-globe-zoom="far"] .custom-dubai-globe-section__pin {
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* No WebGL, or engine chunk could not be fetched */
 .custom-dubai-globe-section__canvas[data-globe-state="unavailable"] {
 	display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: var(--breakpoint-lg)) {
 	.custom-dubai-globe-section {
 		padding-block: var(--space-24);
 	}
@@ -195,6 +350,6 @@
 	}
 
 	.custom-dubai-globe-section__globe {
-		max-width: 28rem;
+		max-width: var(--size-globe-max-width);
 	}
 }

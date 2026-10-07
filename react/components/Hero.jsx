@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Info } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Info } from 'lucide-react';
 
-const SLIDES = [0, 1, 2];
-
-function Hero() {
+function Hero({ carImage }) {
+	const heroRef = useRef(null);
 	const [activeTab, setActiveTab] = useState('tyres');
-	const [activeSlide, setActiveSlide] = useState(0);
 	const [tyre, setTyre] = useState({ width: '', height: '', rim: '' });
 	const [vehicle, setVehicle] = useState({ make: '', model: '', year: '' });
 
 	useEffect(() => {
-		const updateTyre = (event) => {
-			const selection = event.detail || {};
-			setTyre((current) => ({ ...current, ...selection }));
-		};
-		const updateVehicle = (event) => {
-			const selection = event.detail || {};
-			setVehicle((current) => ({ ...current, ...selection }));
-		};
-
+		const updateTyre = (event) => setTyre((current) => ({ ...current, ...event.detail }));
+		const updateVehicle = (event) => setVehicle((current) => ({ ...current, ...event.detail }));
 		document.addEventListener('custom-dubai:tyre-selected', updateTyre);
 		document.addEventListener('custom-dubai:vehicle-selected', updateVehicle);
 		return () => {
@@ -28,82 +19,83 @@ function Hero() {
 		};
 	}, []);
 
-	const openModal = (tab = activeTab) => {
-		document.dispatchEvent(new CustomEvent(
-			tab === 'tyres' ? 'custom-dubai:open-tyre-modal' : 'custom-dubai:open-vehicle-modal'
-		));
-	};
+	useEffect(() => {
+		const hero = heroRef.current;
+		const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const pointer = window.matchMedia('(pointer: fine)');
+		let frame;
+		const reset = () => {
+			cancelAnimationFrame(frame);
+			hero.style.setProperty('--car-x', '0px');
+			hero.style.setProperty('--car-y', '0px');
+		};
+		const move = (event) => {
+			if (motion.matches || !pointer.matches) return;
+			const bounds = hero.getBoundingClientRect();
+			const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * -26;
+			const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -12;
+			cancelAnimationFrame(frame);
+			frame = requestAnimationFrame(() => {
+				hero.style.setProperty('--car-x', `${x}px`);
+				hero.style.setProperty('--car-y', `${y}px`);
+			});
+		};
+		hero.addEventListener('pointermove', move);
+		hero.addEventListener('pointerleave', reset);
+		motion.addEventListener('change', reset);
+		return () => {
+			reset();
+			hero.removeEventListener('pointermove', move);
+			hero.removeEventListener('pointerleave', reset);
+			motion.removeEventListener('change', reset);
+		};
+	}, []);
 
+	const openModal = () => document.dispatchEvent(new CustomEvent(
+		activeTab === 'tyres' ? 'custom-dubai:open-tyre-modal' : 'custom-dubai:open-vehicle-modal'
+	));
 	const values = activeTab === 'tyres' ? tyre : vehicle;
-	const setValues = activeTab === 'tyres' ? setTyre : setVehicle;
 	const fields = activeTab === 'tyres'
 		? [['width', 'Width'], ['height', 'Height'], ['rim', 'Rim']]
 		: [['make', 'Make'], ['model', 'Model'], ['year', 'Year']];
 
 	return (
-		<section className="custom-dubai-hero" aria-label="Tyre and vehicle search" data-slide={activeSlide}>
-			<div className="custom-dubai-hero__scene" aria-hidden="true">
-				<div className="custom-dubai-hero__wheel" />
-				<div className="custom-dubai-hero__vehicle" />
-			</div>
+		<section ref={heroRef} className="custom-dubai-hero" aria-label="Find tyres for your vehicle">
+			<div className="custom-dubai-hero__visual">
+			<div className="custom-dubai-hero__glow" aria-hidden="true" />
 			<div className="custom-dubai-hero__copy">
-				<p>Dubai & Abu Dhabi</p>
-				<h1>Buy Tyres Online</h1>
-				<span>Find the right fit for your vehicle</span>
+				<p className="custom-dubai-hero__eyebrow"><span /> Dubai & Abu Dhabi</p>
+				<h1 aria-label="Premium Tyres For Every Journey."><span className="custom-dubai-hero__title-line"><span>Premium Tyres For</span></span><span className="custom-dubai-hero__title-line"><span>Every Journey.</span></span></h1>
+				<p className="custom-dubai-hero__intro">Find the right tyres for your vehicle. Drive with confidence.</p>
+				<button className="custom-dubai-hero__browse" type="button" onClick={openModal}>Find my tyres <ArrowUpRight aria-hidden="true" /></button>
 			</div>
-
-			<form className="custom-dubai-hero__search" onSubmit={(event) => event.preventDefault()}>
-				<div className="custom-dubai-hero__tabs" role="tablist" aria-label="Search by">
-					{['tyres', 'vehicle'].map((tab) => (
-						<button
-							key={tab}
-							className="custom-dubai-hero__tab"
-							type="button"
-							role="tab"
-							aria-selected={activeTab === tab}
-							onClick={() => setActiveTab(tab)}
-						>
-							{tab === 'vehicle' ? 'Vehicle' : 'Tyres'}
-						</button>
-					))}
+			<div className="custom-dubai-hero__callout"><span aria-hidden="true" /><p>Confidence on the road.<br />It starts with the right tyres.</p></div>
+			<div className="custom-dubai-hero__stage" aria-hidden="true">
+				<div className="custom-dubai-hero__floor" />
+				<div className="custom-dubai-hero__drive"><img className="custom-dubai-hero__car" src={carImage} width="1536" height="1024" alt="" fetchPriority="high" /></div>
+			</div>
+			<div className="custom-dubai-hero__benefits" aria-label="Our focus">
+				<div><span>The right fit</span><strong>Precision</strong></div>
+				<div><span>On every road</span><strong>Confidence</strong></div>
+				<div><span>Every journey</span><strong>Comfort</strong></div>
+			</div>
+			</div>
+			<form className="custom-dubai-hero__search" onSubmit={(event) => { event.preventDefault(); openModal(); }}>
+				<div className="custom-dubai-hero__search-top">
+					<div className="custom-dubai-hero__search-mode"><span>Search by</span><div className="custom-dubai-hero__tabs" role="group" aria-label="Search by">
+						{['tyres', 'vehicle'].map((tab) => <button key={tab} className="custom-dubai-hero__tab" type="button" aria-pressed={activeTab === tab} onClick={() => setActiveTab(tab)}>{tab === 'vehicle' ? 'Vehicle' : 'Tyre size'}</button>)}
+					</div></div>
 				</div>
-
-				<div className="custom-dubai-hero__fields">
-					{fields.map(([key, label]) => (
-						<button
-							key={key}
-							className="custom-dubai-hero__field"
-							type="button"
-							aria-label={`${label}${values[key] ? `: ${values[key]}` : ''}`}
-							onClick={() => openModal(activeTab)}
-						>
-							{values[key] || label}
-						</button>
-					))}
+				<div className="custom-dubai-hero__search-bottom">
+					<div className="custom-dubai-hero__fields">{fields.map(([key, label]) => <div className="custom-dubai-hero__field-wrap" key={key}><span aria-hidden="true">{label}</span><button className="custom-dubai-hero__field" type="button" aria-label={`${label}: ${values[key] || 'Choose ' + label.toLowerCase()}`} onClick={openModal}><span>{values[key] || label}</span><ChevronDown aria-hidden="true" /></button></div>)}</div>
+					<button className="custom-dubai-hero__submit" type="submit">Find tyres <ArrowUpRight aria-hidden="true" /></button>
 				</div>
-
-				<button className="custom-dubai-hero__help" type="button" onClick={openModal} aria-label="Open selection guide">
-					<Info aria-hidden="true" focusable="false" />
-					<span>{activeTab === 'tyres' ? 'Learn to read your tyre size here' : 'Help me find my vehicle'}</span>
-				</button>
+				<button className="custom-dubai-hero__help" type="button" onClick={openModal}><Info aria-hidden="true" /><span>{activeTab === 'tyres' ? 'Learn to read your tyre size here' : 'Help me find my vehicle'}</span></button>
 			</form>
-
-			<div className="custom-dubai-hero__scroller" role="group" aria-label="Hero slides">
-				{SLIDES.map((slide) => (
-					<button
-						key={slide}
-						className="custom-dubai-hero__dot"
-						type="button"
-						aria-label={`Show slide ${slide + 1}`}
-						aria-current={activeSlide === slide ? 'true' : undefined}
-						onClick={() => setActiveSlide(slide)}
-					/>
-				))}
-			</div>
 		</section>
 	);
 }
 
 document.querySelectorAll('.custom-dubai-hero-root').forEach((element) => {
-	createRoot(element).render(<Hero />);
+	createRoot(element).render(<Hero carImage={element.dataset.carImage} />);
 });

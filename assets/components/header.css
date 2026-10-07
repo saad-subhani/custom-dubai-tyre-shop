@@ -35,10 +35,10 @@
 .dts-header__phones { display: flex; gap: var(--space-3); }
 .dts-header__actions svg { width: var(--header-icon-size); height: var(--header-icon-size); stroke-width: var(--header-icon-stroke); }
 .dts-header__account, .dts-header__cart, .dts-header__toggle { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; padding: var(--space-1); border: 0; background: transparent; color: var(--color-header-text); cursor: pointer; }
-.dts-header__cart { width: 44px; height: 44px; border-radius: 50%; transition: background-color .18s ease, color .18s ease, transform .18s ease; }
+.dts-header__cart { width: var(--header-control-size); height: var(--header-control-size); border-radius: 50%; transition: background-color var(--motion-duration-fast) ease, color var(--motion-duration-fast) ease, transform var(--motion-duration-fast) ease; }
 .dts-header__cart:hover, .dts-header__cart:focus-visible { background: color-mix(in srgb, var(--color-accent) 14%, transparent); color: var(--color-accent); }
-.dts-header__cart:hover svg { transform: translateY(-1px); }
-.dts-header__cart svg { width: 24px; height: 24px; stroke-width: 1.8; transition: transform .18s ease; }
+.dts-header__cart:hover svg { transform: translateY(var(--space-header-cart-lift)); }
+.dts-header__cart svg { width: var(--header-icon-size); height: var(--header-icon-size); stroke-width: var(--header-cart-icon-stroke); transition: transform var(--motion-duration-fast) ease; }
 .dts-header__cart-count { position: absolute; top: calc(var(--space-2) * -1); right: calc(var(--space-2) * -1); display: grid; min-width: var(--header-count-size); min-height: var(--header-count-size); padding-inline: var(--space-1); place-items: center; border-radius: var(--radius-lg); background: var(--color-accent); color: var(--color-primary); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); }
 .dts-header__toggle { display: none; }
 .dts-header-drawer__backdrop { position: fixed; inset: 0; z-index: var(--z-index-header-drawer); background: var(--color-modal-backdrop); opacity: 0; pointer-events: none; transition: opacity var(--header-transition); }
@@ -61,13 +61,13 @@
 .dts-header-drawer__socials a { display: grid; width: var(--header-control-size); height: var(--header-control-size); place-items: center; border-radius: var(--radius-sm); background: var(--color-background-alt); color: inherit; }
 .dts-header-drawer__account { margin-top: auto; padding-top: var(--space-4); border-top: var(--header-border-width) solid var(--color-border); }
 
-@media (max-width: 1360px) {
+@media (max-width: var(--breakpoint-header-wide)) {
 	.dts-header__inner { gap: var(--space-4); }
 	.dts-header__nav { display: none; }
 	.dts-header__toggle { display: inline-flex; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: var(--breakpoint-header-mobile)) {
 	.dts-header__inner { width: min(calc(100% - var(--space-4)), var(--container-max-width)); min-height: var(--header-height-mobile); }
 	.dts-header__brand { flex-basis: var(--header-logo-width-mobile); }
 	.dts-header__phones, .dts-header__language, .dts-header__support, .dts-header__account { display: none; }
@@ -75,28 +75,28 @@
 }
 .dts-header__topbar {
 	display: flex;
-	min-height: 32px;
+	min-height: var(--size-header-topbar-min-height);
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-2);
-	padding: 5px var(--space-3);
+	padding: var(--space-header-topbar-padding-block) var(--space-3);
 	background: var(--color-primary);
 	color: var(--color-secondary);
-	font-size: 10px;
+	font-size: var(--font-size-header-topbar);
 	font-weight: var(--font-weight-semibold);
 	text-align: center;
 	line-height: 1.2;
 	white-space: nowrap;
 	overflow: hidden;
 }
-.dts-header__topbar svg { width: 14px; height: 14px; color: var(--color-accent-light); }
-.dts-header__inner { min-height: 76px; gap: var(--space-4); }
-.dts-header__brand { flex-basis: 156px; }
+.dts-header__topbar svg { width: var(--size-header-topbar-icon); height: var(--size-header-topbar-icon); color: var(--color-accent-light); }
+.dts-header__inner { min-height: var(--header-height-compact); gap: var(--space-4); }
+.dts-header__brand { flex-basis: var(--header-logo-width-compact); }
 .dts-header__actions { gap: var(--space-4); }
-.dts-header__actions svg { width: 22px; height: 22px; }
+.dts-header__actions svg { width: var(--header-icon-size-compact); height: var(--header-icon-size-compact); }
 .dts-header__toggle { display: inline-flex; }
 .dts-header__cart, .dts-header__toggle { padding: var(--space-2); }
-.dts-header-drawer__top img { width: 156px; }
+.dts-header-drawer__top img { width: var(--header-logo-width-compact); }
 .dts-header-drawer__description { font-size: var(--font-size-sm); }
 .dts-header-drawer h2 { font-size: var(--font-size-md); }
 .dts-header-drawer__numbers a, .dts-header-drawer__nav .dts-header__menu > li > a { font-size: var(--font-size-sm); }
@@ -104,11 +104,11 @@
 .dts-header-drawer__nav .dts-header__menu > li > a { display: flex; padding-block: var(--space-2); white-space: normal; }
 .dts-header-drawer__nav .sub-menu { position: static; display: grid; gap: var(--space-1); margin: 0; padding: 0 0 0 var(--space-4); list-style: none; box-shadow: none; }
 .dts-header-drawer__nav .sub-menu a { font-size: var(--font-size-sm); }
-@media (max-width: 760px) {
-	.dts-header__inner { width: min(calc(100% - var(--space-4)), var(--container-max-width)); min-height: 64px; }
-	.dts-header__brand { flex-basis: 132px; }
+@media (max-width: var(--breakpoint-header-mobile)) {
+	.dts-header__inner { width: min(calc(100% - var(--space-4)), var(--container-max-width)); min-height: var(--header-height-mobile-compact); }
+	.dts-header__brand { flex-basis: var(--header-logo-width-mobile-compact); }
 	.dts-header__actions { gap: var(--space-2); }
 }
-@media (max-width: 380px) {
-	.dts-header__topbar { gap: var(--space-1); padding-inline: var(--space-1); font-size: 9px; }
+@media (max-width: var(--breakpoint-header-small)) {
+	.dts-header__topbar { gap: var(--space-1); padding-inline: var(--space-1); font-size: var(--font-size-header-topbar-small); }
 }

@@ -20,8 +20,7 @@ import WORLD from './geo/world.json';
 /**
  * Camera distance from the globe centre. Scrolling down flies the camera in,
  * from a broad view of the whole planet to a close-up on the UAE. The globe
- * itself is always radius 100. Keep the close view far enough away to preserve
- * the whole spherical silhouette while the camera moves toward the UAE.
+ * itself is always radius 100.
  */
 const CAMERA_DISTANCE_FAR = 470;
 const CAMERA_DISTANCE_NEAR = 300;
@@ -49,19 +48,43 @@ const ZOOM_LABEL_THRESHOLD = 0.45;
 
 const UAE_FLAG = 'uae';
 
-/**
- * Every colour comes from a global design token so there is nothing to keep in
- * sync with style.css. Hex is the only notation read from the custom property.
- */
+// UAE National Flag Colors
+// Resolved from :root in style.css so the flag stays centrally configurable.
+// UAE_FLAG_DEFAULTS are the official national-flag values and act as the
+// fallback if a token is ever removed.
+const UAE_FLAG_DEFAULTS = {
+	green: '#00732F',
+	red: '#E8112d',
+	redRgb: '232, 17, 45',
+	white: '#FFFFFF',
+	black: '#111315',
+	darkGreen: '#004c1f',
+};
+
 const TOKEN_DEFAULTS = {
 	'--color-globe-ocean': '#171819',
 	'--color-globe-ocean-emissive': '#171819',
 	'--color-globe-land': '#c8cacc',
-	'--color-globe-highlight': '#f0f1f2',
-	'--color-globe-highlight-edge': '#ffffff',
-	'--color-globe-pin': '#ffffff',
+	'--color-globe-highlight': UAE_FLAG_DEFAULTS.green,
+	'--color-globe-highlight-edge': UAE_FLAG_DEFAULTS.red,
+	'--color-globe-pin': UAE_FLAG_DEFAULTS.red,
 	'--color-globe-atmosphere': '#d9dcde',
+	'--color-flag-uae-green': UAE_FLAG_DEFAULTS.green,
+	'--color-flag-uae-red': UAE_FLAG_DEFAULTS.red,
+	'--color-flag-uae-red-rgb': UAE_FLAG_DEFAULTS.redRgb,
+	'--color-flag-uae-white': UAE_FLAG_DEFAULTS.white,
+	'--color-flag-uae-black': UAE_FLAG_DEFAULTS.black,
+	'--color-flag-uae-dark-green': UAE_FLAG_DEFAULTS.darkGreen,
+	'--color-accent': '#d5a51c',
+	'--color-globe-light': '#ffffff',
 };
+
+/**
+ * Flag + globe colours resolved once at init. `createPinElement` is handed to
+ * three-globe as a bare callback and has no access to the local `tokens`
+ * binding, so it reads this module-level snapshot instead.
+ */
+let activeTokens = null;
 
 const FEATURES = [
 	...WORLD.features,
@@ -81,16 +104,44 @@ function readTokens(element) {
 		land: get('--color-globe-land'),
 		pin: get('--color-globe-pin'),
 		atmosphere: get('--color-globe-atmosphere'),
-		uae: get('--color-globe-highlight'),
-		uaeEdge: get('--color-globe-highlight-edge'),
+		accent: get('--color-accent'),
+		flagGreen: get('--color-flag-uae-green'),
+		flagRed: get('--color-flag-uae-red'),
+		flagRedRgb: get('--color-flag-uae-red-rgb'),
+		flagWhite: get('--color-flag-uae-white'),
+		flagBlack: get('--color-flag-uae-black'),
+		flagDarkGreen: get('--color-flag-uae-dark-green'),
+		light: get('--color-globe-light'),
 	};
 }
 
-/** Build the DOM node for one emirate name. Styling lives in the component CSS. */
+/** Build the DOM node for one emirate pinned SVG with UAE flag styling. */
 function createPinElement(datum) {
-	const element = document.createElement('span');
-	element.className = `custom-dubai-globe-section__pin custom-dubai-globe-section__pin--${datum.id}`;
-	element.textContent = datum.name;
+	const t = activeTokens || readTokens(document.documentElement);
+	const element = document.createElement('div');
+	element.className = `custom-dubai-globe-section__pin custom-dubai-globe-section__pin--${datum.id}${datum.hub ? ' custom-dubai-globe-section__pin--hub' : ''}`;
+	element.innerHTML = `
+		<div class="custom-dubai-globe-section__pin-anchor" aria-hidden="true">
+			<svg viewBox="0 0 24 32" class="custom-dubai-globe-section__pin-svg">
+				<path d="M12 0C5.373 0 0 5.373 0 12c0 8.5 10.5 18.5 11.3 19.3.4.4 1 .4 1.4 0C13.5 30.5 24 20.5 24 12 24 5.373 18.627 0 12 0z" fill="${datum.hub ? t.flagRed : t.flagGreen}" />
+				<circle cx="12" cy="11" r="5.5" fill="${t.flagWhite}" />
+				<circle cx="12" cy="11" r="3.2" fill="${datum.hub ? t.accent : t.flagRed}" />
+			</svg>
+			<span class="custom-dubai-globe-section__pin-pulse"></span>
+		</div>
+		<div class="custom-dubai-globe-section__pin-card">
+			<span class="custom-dubai-globe-section__pin-flag" aria-hidden="true">
+				<span class="flag-red"></span>
+				<span class="flag-stripes">
+					<span class="flag-green"></span>
+					<span class="flag-white"></span>
+					<span class="flag-black"></span>
+				</span>
+			</span>
+			<span class="custom-dubai-globe-section__pin-text">${datum.name}</span>
+			${datum.hub ? '<span class="custom-dubai-globe-section__pin-hub-tag">Hub</span>' : ''}
+		</div>
+	`;
 	return element;
 }
 
@@ -112,8 +163,6 @@ function disposeScene(scene) {
 	});
 }
 
-
-
 /**
  * Build the globe inside `container`.
  *
@@ -127,6 +176,8 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 	if (!container) throw new Error('createGlobe: a container element is required');
 
 	const tokens = readTokens(container);
+	// Publish for createPinElement, which three-globe invokes as a bare callback.
+	activeTokens = tokens;
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(FIELD_OF_VIEW, 1, 1, 1400);
 	camera.position.set(0, 0, CAMERA_DISTANCE_FAR);
@@ -142,8 +193,7 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 	if (label) renderer.domElement.setAttribute('aria-label', label);
 	container.appendChild(renderer.domElement);
 
-	// three-globe projects these names onto CSS2DObjects but leaves rendering
-	// them to the host, so the section supplies its own overlay layer.
+	// CSS2DRenderer for projecting interactive SVG pinned labels onto the globe
 	const labelRenderer = new CSS2DRenderer();
 	labelRenderer.domElement.className = 'custom-dubai-globe-section__labels';
 	container.appendChild(labelRenderer.domElement);
@@ -154,30 +204,27 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 		.atmosphereAltitude(0.2)
 		.polygonsData(FEATURES)
 		.polygonCapCurvatureResolution(5)
-		.polygonAltitude((datum) => (isUae(datum) ? 0.012 : 0.005))
-		.polygonCapColor((datum) => (isUae(datum) ? tokens.uae : tokens.land))
-		.polygonSideColor(() => tokens.land)
-		// A falsy stroke tells three-globe to skip the outline entirely, so the
-		// only country that gets a border is the one we want to highlight.
-		.polygonStrokeColor((datum) => (isUae(datum) ? tokens.uaeEdge : null))
+		// Highlight UAE in UAE National Green with Red border and elevated 3D relief
+		.polygonAltitude((datum) => (isUae(datum) ? 0.018 : 0.005))
+		.polygonCapColor((datum) => (isUae(datum) ? tokens.flagGreen : tokens.land))
+		.polygonSideColor((datum) => (isUae(datum) ? tokens.flagDarkGreen : tokens.land))
+		.polygonStrokeColor((datum) => (isUae(datum) ? tokens.flagRed : null))
 		.pointsData(EMIRATES)
-		.pointColor(() => tokens.uaeEdge)
-		.pointRadius(0.26)
-		.pointAltitude(0.03)
+		.pointColor((d) => (d.hub ? tokens.flagRed : tokens.flagGreen))
+		.pointRadius(0.35)
+		.pointAltitude(0.02)
 		.pointResolution(16)
 		.pointsTransitionDuration(0)
-		// The names are real DOM nodes, so the stylesheet can fan them out
-		// instead of letting seven labels stack on the same few pixels.
 		.htmlElementsData(EMIRATES)
 		.htmlElement(createPinElement)
-		.htmlAltitude(0.004)
+		.htmlAltitude(0.005)
 		.htmlTransitionDuration(0)
 		.ringsData(HUBS)
-		.ringColor(() => tokens.uaeEdge)
-		.ringMaxRadius(3.4)
+		.ringColor(() => (t) => `rgba(${tokens.flagRedRgb}, ${Math.max(0, 1 - t)})`)
+		.ringMaxRadius(4.2)
 		.ringPropagationSpeed(2.2)
-		.ringRepeatPeriod(1600)
-		.ringAltitude(0.01);
+		.ringRepeatPeriod(1500)
+		.ringAltitude(0.012);
 
 	const sphere = globe.globeMaterial();
 	sphere.color = new THREE.Color(tokens.ocean);
@@ -185,8 +232,8 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 	sphere.emissiveIntensity = 1;
 	sphere.shininess = 0.4;
 
-	scene.add(new THREE.AmbientLight(0xffffff, 1.1));
-	const key = new THREE.DirectionalLight(0xffffff, 0.85);
+	scene.add(new THREE.AmbientLight(tokens.light, 1.15));
+	const key = new THREE.DirectionalLight(tokens.light, 0.9);
 	key.position.set(-2, 1, 1.2);
 	scene.add(key, globe);
 
@@ -196,8 +243,6 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.08;
 	controls.rotateSpeed = 0.6;
-	// Zooming would swallow the wheel event and break page scrolling, which is
-	// what drives the rotation here.
 	controls.enableZoom = false;
 	controls.enablePan = false;
 	controls.minPolarAngle = 0.4;
@@ -216,11 +261,6 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 	const resizeObserver = new ResizeObserver(resize);
 	resizeObserver.observe(container);
 
-	// Scroll drives both the rotation and the camera distance. `t` is 0 while
-	// the globe is still arriving at the bottom of the viewport and 1 once the
-	// section is centred, so the whole move happens while it is actually on
-	// screen. Measuring against the element centre keeps this independent of
-	// how tall the section or viewport happens to be.
 	let targetSpin = UAE_ROTATION_Y - SCROLL_SPAN;
 	let spin = targetSpin;
 	let targetDistance = CAMERA_DISTANCE_FAR;
@@ -242,14 +282,10 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 			lastT = t;
 			targetSpin = UAE_ROTATION_Y + (t - 1) * SCROLL_SPAN;
 			targetDistance = CAMERA_DISTANCE_FAR + (CAMERA_DISTANCE_NEAR - CAMERA_DISTANCE_FAR) * t;
-			// The stylesheet hides the emirate names until the close-up starts,
-			// so they never clutter the wide view of the planet.
 			container.dataset.globeZoom = t > ZOOM_LABEL_THRESHOLD ? 'near' : 'far';
 		}
 
 		if (reducedMotion) {
-			// Visitors who ask for less motion get no animation at all: the
-			// globe stays locked to the scroll position instead of sweeping.
 			spin = targetSpin;
 			distance = targetDistance;
 		} else {
@@ -259,7 +295,6 @@ export function createGlobe({ container, label = '', reducedMotion = false } = {
 		}
 
 		globe.rotation.y = spin;
-		// Setting the length keeps the angle the visitor dragged the globe to.
 		camera.position.setLength(distance);
 		controls.update();
 		renderer.render(scene, camera);

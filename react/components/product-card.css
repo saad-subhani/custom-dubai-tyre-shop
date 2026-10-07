@@ -2,15 +2,15 @@
 	display: flex;
 	flex-direction: column;
 	background: var(--color-secondary);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-lg);
 	overflow: hidden;
-	transition: box-shadow 0.2s ease, transform 0.2s ease;
+	transition: box-shadow var(--motion-product-card), transform var(--motion-product-card);
 }
 
 .custom-dubai-product-card:hover {
-	box-shadow: 0 8px 30px rgb(0 0 0 / 10%);
-	transform: translateY(-2px);
+	box-shadow: var(--shadow-product-card-hover);
+	transform: translateY(var(--motion-product-card-lift));
 }
 
 .custom-dubai-product-card__image-wrapper {
@@ -20,7 +20,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 220px;
+	min-height: var(--size-product-card-image-min-height);
 }
 
 .custom-dubai-product-card__brand {
@@ -35,12 +35,12 @@
 	padding: var(--space-1) var(--space-2);
 	border-radius: var(--radius-sm);
 	text-transform: uppercase;
-	letter-spacing: 0.5px;
+	letter-spacing: var(--tracking-product-card-brand);
 }
 
 .custom-dubai-product-card__image {
-	max-width: 100%;
-	max-height: 200px;
+	max-width: var(--size-width-full);
+	max-height: var(--size-product-card-image-max-height);
 	object-fit: contain;
 }
 
@@ -77,14 +77,14 @@
 }
 
 .custom-dubai-product-card__meta-icon {
-	width: 14px;
-	height: 14px;
+	width: var(--size-product-card-meta-icon);
+	height: var(--size-product-card-meta-icon);
 	flex-shrink: 0;
 }
 
 .custom-dubai-product-card__flag {
 	flex-shrink: 0;
-	font-size: 13px;
+	font-size: var(--font-size-product-card-flag);
 	line-height: 1;
 }
 
@@ -104,7 +104,7 @@
 	padding: var(--space-1) var(--space-2);
 	border-radius: var(--radius-sm);
 	text-transform: uppercase;
-	letter-spacing: 0.3px;
+	letter-spacing: var(--tracking-product-card-badge);
 }
 
 .custom-dubai-product-card__size {
@@ -117,8 +117,8 @@
 }
 
 .custom-dubai-product-card__size-icon {
-	width: 16px;
-	height: 16px;
+	width: var(--size-product-card-size-icon);
+	height: var(--size-product-card-size-icon);
 	flex-shrink: 0;
 }
 
@@ -168,15 +168,15 @@
 .custom-dubai-product-card__quantity {
 	display: flex;
 	align-items: center;
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius-md);
 	overflow: hidden;
 	flex-shrink: 0;
 }
 
 .custom-dubai-product-card__qty-btn {
-	width: 36px;
-	height: 40px;
+	width: var(--size-product-card-qty-btn-width);
+	height: var(--size-product-card-qty-btn-height);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -187,7 +187,7 @@
 	font-weight: var(--font-weight-semibold);
 	color: var(--color-text);
 	cursor: pointer;
-	transition: background 0.15s ease;
+	transition: background var(--motion-product-card-qty);
 }
 
 .custom-dubai-product-card__qty-btn:hover {
@@ -195,7 +195,7 @@
 }
 
 .custom-dubai-product-card__qty-value {
-	min-width: 32px;
+	min-width: var(--size-product-card-qty-value-min-width);
 	text-align: center;
 	font-family: var(--font-family-base);
 	font-size: var(--font-size-sm);
@@ -209,7 +209,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: var(--space-2);
-	height: 44px;
+	height: var(--size-product-card-add-btn-height);
 	background: var(--color-primary);
 	color: var(--color-secondary);
 	border: none;
@@ -218,7 +218,7 @@
 	font-size: var(--font-size-sm);
 	font-weight: var(--font-weight-semibold);
 	cursor: pointer;
-	transition: background 0.15s ease, transform 0.1s ease;
+	transition: background var(--motion-product-card-add), transform var(--motion-product-card-add-transform);
 }
 
 .custom-dubai-product-card__add-btn:hover {
@@ -237,8 +237,8 @@
 }
 
 .custom-dubai-product-card__cart-icon {
-	width: 18px;
-	height: 18px;
+	width: var(--size-product-card-cart-icon);
+	height: var(--size-product-card-cart-icon);
 }
 
 .custom-dubai-product-card__footer {
@@ -246,7 +246,7 @@
 	align-items: center;
 	gap: var(--space-4);
 	padding-top: var(--space-2);
-	border-top: 1px solid var(--color-border);
+	border-top: var(--border-width) solid var(--color-border);
 }
 
 .custom-dubai-product-card__stock {
@@ -256,12 +256,12 @@
 	font-family: var(--font-family-base);
 	font-size: var(--font-size-xs);
 	font-weight: var(--font-weight-semibold);
-	color: #16a34a;
+	color: var(--color-success);
 }
 
 .custom-dubai-product-card__stock-icon {
-	width: 14px;
-	height: 14px;
+	width: var(--size-product-card-stock-icon);
+	height: var(--size-product-card-stock-icon);
 }
 
 .custom-dubai-product-card__fitment {
@@ -274,12 +274,12 @@
 }
 
 .custom-dubai-product-card__fitment-icon {
-	width: 14px;
-	height: 14px;
+	width: var(--size-product-card-fitment-icon);
+	height: var(--size-product-card-fitment-icon);
 	color: var(--color-accent);
 }
 
 .custom-dubai-product-card__info-icon {
-	width: 12px;
-	height: 12px;
+	width: var(--size-product-card-info-icon);
+	height: var(--size-product-card-info-icon);
 }
