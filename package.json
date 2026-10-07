@@ -1,0 +1,28 @@
+{
+	"name": "custom-dubai-tyre-shop-theme",
+	"private": true,
+	"scripts": {
+		"build:header": "esbuild ./react/components/Header.jsx --bundle --minify --format=iife --target=es2017 --outfile=./react/components/header.js",
+		"build:hero": "esbuild ./react/components/Hero.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/hero/hero.js",
+		"build:globe-section": "esbuild ./react/components/GlobeSection.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/globe-section/globe-section.js && esbuild ./react/components/globe/GlobeEngine.js --bundle --minify --format=iife --global-name=CDTSGlobeEngine --target=es2018 --outfile=./shortcodes/globe-section/chunks/globe-engine.js",
+		"build:product-card": "esbuild ./react/components/ProductCard.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/product-card/product-card.js",
+		"build:single-product": "esbuild ./react/components/SingleProduct.jsx --bundle --minify --format=iife --target=es2017 --outfile=./react/components/single-product.js",
+		"build:shop-by-category": "esbuild ./react/components/ShopByCategory.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/shop-by-category/shop-by-category.js",
+		"build:services-section": "esbuild ./react/components/ServicesSection.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/services-section/services-section.js",
+		"build:shop-archive": "esbuild ./react/components/ShopArchive.jsx --bundle --minify --format=iife --target=es2017 --outfile=./react/components/shop-archive.js",
+		"build:footer": "esbuild ./react/components/Footer.jsx --bundle --minify --format=iife --target=es2017 --outfile=./react/components/footer.js",
+		"build:side-cart": "esbuild ./react/components/SideCart.jsx --bundle --minify --format=iife --target=es2017 --outfile=./shortcodes/side-cart/side-cart.js",
+		"prepare:globe-geo": "node ./react/components/globe/prepare-geo.mjs"
+	},
+	"dependencies": {
+		"lucide-react": "^0.469.0",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"three": "^0.150.1",
+		"three-globe": "^2.25.4"
+	},
+	"devDependencies": {
+		"@fontsource-variable/work-sans": "^5.3.0",
+		"esbuild": "^0.25.0"
+	}
+}

@@ -1,0 +1,24 @@
+.dts-shop-categories { width: 100%; padding-block: var(--space-12); background: var(--color-background); color: var(--color-text); font-family: var(--font-family-base); }
+.dts-shop-categories__inner { width: min(calc(100% - var(--space-8)), var(--container-max-width)); max-width: var(--container-max-width); margin-inline: auto; }
+.dts-shop-categories__header { display: flex; align-items: end; justify-content: space-between; gap: var(--space-6); margin-bottom: var(--space-4); }
+.dts-shop-categories__eyebrow { margin: 0 0 var(--space-1); color: var(--color-accent-dark); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold); letter-spacing: var(--category-eyebrow-tracking); text-transform: uppercase; }
+.dts-shop-categories__header h2 { margin: 0; color: var(--color-text); font-family: var(--font-family-heading); font-size: var(--font-size-h3); line-height: var(--line-height-section-heading); }
+.dts-shop-categories__intro { margin: var(--space-1) 0 0; color: var(--color-text-light); font-size: var(--font-size-sm); }
+.dts-shop-categories__controls { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+.dts-shop-categories__controls a { margin-inline-end: var(--space-2); color: var(--color-text); font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); text-decoration: none; }
+.dts-shop-categories__controls a:hover { color: var(--color-accent-dark); }
+.dts-shop-categories__controls button { display: grid; width: var(--space-8); height: var(--space-8); padding: 0; place-items: center; border: var(--border-width) solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-background); color: var(--color-text); cursor: pointer; }
+.dts-shop-categories__controls button:hover:not(:disabled) { border-color: var(--color-accent); background: var(--color-accent-light); }
+.dts-shop-categories__controls button:disabled { opacity: .4; cursor: default; }
+.dts-shop-categories__controls button svg { width: var(--font-size-base); height: var(--font-size-base); }
+.dts-shop-categories__track { display: grid; grid-auto-columns: calc((100% - var(--space-4) * 4) / 5); grid-auto-flow: column; gap: var(--space-4); overflow-x: auto; overscroll-behavior-inline: contain; padding: 0 0 var(--space-2); scroll-snap-type: x mandatory; scrollbar-width: none; }
+.dts-shop-categories__track::-webkit-scrollbar { display: none; }
+.dts-category-card { position: relative; display: block; overflow: hidden; aspect-ratio: var(--category-card-aspect-ratio); border-radius: var(--radius-sm); background: var(--color-background-alt); color: var(--color-secondary); scroll-snap-align: start; text-decoration: none; }
+.dts-category-card img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-duration-normal) ease; }
+.dts-category-card:hover img { transform: scale(var(--category-image-hover-scale)); }
+.dts-category-card__shade { position: absolute; inset: 0; background: linear-gradient(0deg, var(--color-hero-panel-overlay), transparent var(--category-gradient-stop)); }
+.dts-category-card__copy { position: absolute; inset-inline: var(--space-3); bottom: var(--space-3); display: grid; gap: var(--space-1); color: var(--color-secondary); text-shadow: var(--shadow-category-copy); }
+.dts-category-card__copy strong { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); line-height: var(--line-height-base); }
+.dts-category-card__copy small { color: var(--color-secondary); font-size: var(--font-size-xs); line-height: var(--line-height-base); }
+@media (max-width: 900px) { .dts-shop-categories__track { grid-auto-columns: calc((100% - var(--space-4) * 2) / 3); } }
+@media (max-width: 600px) { .dts-shop-categories { padding-block: var(--space-8); } .dts-shop-categories__inner { width: calc(100% - var(--space-6)); } .dts-shop-categories__header { align-items: start; } .dts-shop-categories__controls { flex-wrap: wrap; justify-content: end; } .dts-shop-categories__controls a { width: 100%; margin: 0; text-align: right; } .dts-shop-categories__track { grid-auto-columns: 100%; gap: var(--space-3); } .dts-category-card { aspect-ratio: var(--category-card-mobile-aspect-ratio); } }

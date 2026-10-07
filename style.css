@@ -1,0 +1,255 @@
+/*
+Theme Name: custom-dubai-tyre-shop
+Theme URI: https://example.com/custom-dubai-tyre-shop
+Author: Theme Developer
+Description: A clean, modular WordPress theme for a Dubai tyre shop.
+Version: 1.0.0
+Text Domain: custom-dubai-tyre-shop
+*/
+
+@font-face {
+	font-family: "Work Sans";
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url("assets/fonts/work-sans-latin-variable.woff2") format("woff2");
+}
+
+:root {
+	--color-text: #222222;
+	--color-text-light: #666666;
+	--color-primary: #222222;
+	--color-secondary: #ffffff;
+	--color-background: #ffffff;
+	--color-background-alt: #f3f4f5;
+	--color-border: #d9dde1;
+	--color-accent: #d5a51c;
+	--color-accent-dark: #a87f0e;
+	--color-accent-light: #f0c34a;
+	--color-globe-ocean: #171819;
+	--color-globe-ocean-emissive: #171819;
+	--color-globe-land: #c8cacc;
+	--color-globe-highlight: #f0f1f2;
+	--color-globe-highlight-edge: #ffffff;
+	--color-globe-pin: #ffffff;
+	--color-globe-atmosphere: #d9dcde;
+	--color-globe-section-bg: var(--color-background);
+	--color-globe-section-glow: rgb(9 217 196 / 22%);
+	--color-globe-section-line: rgb(255 255 255 / 16%);
+	--color-globe-section-panel: rgb(4 16 22 / 88%);
+	--color-hero: #101214;
+	--color-hero-panel: #080909;
+	--color-hero-line: #383b3d;
+	--color-hero-shade: #111315;
+	--color-hero-tire: #17191a;
+	--color-hero-tire-mid: #282b2c;
+	--color-hero-tire-light: #3c3f40;
+	--color-hero-tire-edge: #454647;
+	--color-hero-tire-steel: #5a5d5e;
+	--color-hero-landscape: #29251b;
+	--color-hero-glow: rgb(213 165 28 / 35%);
+	--color-hero-glow-soft: rgb(213 165 28 / 15%);
+	--color-hero-glow-shadow: rgb(213 165 28 / 34%);
+	--color-hero-overlay: rgb(0 0 0 / 40%);
+	--color-hero-shadow: rgb(0 0 0 / 70%);
+	--color-hero-panel-overlay: rgb(0 0 0 / 88%);
+	--color-modal-backdrop: rgb(0 0 0 / 76%);
+	--color-modal-shadow: rgb(0 0 0 / 32%);
+	--color-modal-muted: #eef0f2;
+	--color-success: #16a34a;
+	--color-info: #1d4ed8;
+/* Literal, not an alias: shop-archive.css shadows --color-primary with the gold
+   accent, so var(--color-cta) would resolve to gold there and near-black
+   everywhere else. A literal keeps the action colour identical site-wide. */
+--color-cta: #222222;
+--color-cta-hover: #111111;
+	--z-index-modal: 1000;
+	--z-index-header: 20;
+	--z-index-header-drawer: 1100;
+	--font-family-base: "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-family-heading: "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-size-base: 16px;
+	--container-max-width: 1160px;
+	--border-width: 1px;
+	--motion-duration-fast: 180ms;
+	--motion-duration-normal: 300ms;
+	--category-card-aspect-ratio: 1.42;
+	--category-card-mobile-aspect-ratio: 1.5;
+	--category-image-hover-scale: 1.04;
+	--category-gradient-stop: 78%;
+	--category-eyebrow-tracking: 0.08em;
+	--shadow-category-copy: 0 1px 4px var(--color-hero-shadow);
+	--font-size-xs: 12px;
+	--font-size-sm: 14px;
+	--font-size-md: 18px;
+	--font-size-lg: 20px;
+	--font-size-xl: 24px;
+	--font-size-2xl: 32px;
+	--font-size-3xl: 40px;
+	--font-size-4xl: 48px;
+	--font-size-5xl: 64px;
+	--font-size-h1: clamp(2.5rem, 5vw, var(--font-size-5xl));
+	--font-size-h2: clamp(2rem, 4vw, var(--font-size-4xl));
+	--font-size-h3: clamp(1.5rem, 3vw, var(--font-size-3xl));
+	--font-size-section-heading: clamp(1.75rem, 5.4vw, var(--font-size-3xl));
+	--font-size-hero: clamp(2rem, 4.1vw, var(--font-size-5xl));
+	--font-size-hero-mobile: clamp(1.8rem, 8vw, 2.5rem);
+	--font-size-modal-title: clamp(1.25rem, 2vw, 1.75rem);
+	--font-size-modal-option: 16px;
+	--line-height-navbar: 22px;
+	--line-height-hero: 1.02;
+	--line-height-section-heading: 1.08;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--line-height-base: 1.5;
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-6: 24px;
+	--space-8: 32px;
+	--space-10: 40px;
+	--space-12: 48px;
+	--space-16: 64px;
+	--space-20: 80px;
+	--space-24: 96px;
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 20px;
+	--color-header-background: var(--color-background);
+	--color-header-text: var(--color-primary);
+	--color-header-link-hover: var(--color-accent-dark);
+	--color-header-shadow: rgb(0 0 0 / 8%);
+	--header-height: 112px;
+	--header-height-mobile: 80px;
+	--header-logo-width: 224px;
+	--header-logo-width-mobile: 168px;
+	--header-drawer-logo-width: 188px;
+	--header-gap: 32px;
+	--header-menu-gap: 24px;
+	--header-action-gap: 16px;
+	--header-icon-size: 24px;
+	--header-icon-stroke: 2;
+	--header-chevron-width: 2px;
+	--header-dropdown-width: 208px;
+	--header-count-size: 20px;
+	--header-control-size: 44px;
+	--header-drawer-width: 420px;
+	--header-transition: 240ms ease;
+	--header-border-width: 1px;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+body {
+	width: 100%;
+	margin: 0;
+	overflow-x: clip;
+	background: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-family-heading);
+	line-height: 1.2;
+}
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-md); }
+
+button,
+input,
+select,
+textarea {
+	font-family: var(--font-family-base);
+}
+
+a {
+	color: var(--color-accent);
+}
+
+.site-header,
+.site-header a {
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-base);
+	font-style: normal;
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-navbar);
+}
+
+.site-header nav a {
+	color: var(--color-accent-dark);
+	text-decoration: none;
+}
+
+.site-header,
+.site-footer {
+	padding: var(--space-4);
+	background: var(--color-background);
+}
+
+.site-main {
+	display: block;
+	width: 100%;
+	max-width: none;
+	margin: 0;
+	padding-block: var(--space-8);
+	padding-inline: 0;
+}
+
+.site-main > article,
+.site-main > .entry-content,
+.site-main > article > .entry-content,
+.site-main .wp-block-post-content {
+	width: 100%;
+	max-width: none;
+}
+
+.site-main h1,
+.site-main h2,
+.site-main h3,
+.site-main h4,
+.site-main h5,
+.site-main h6,
+.site-main .wp-block-heading,
+.site-main .elementor-heading-title {
+	font-family: var(--font-family-heading);
+}
+
+.site-main .alignfull {
+	width: 100vw;
+	max-width: none;
+	margin-inline: calc(50% - 50vw);
+}
+
+.site-main .alignwide {
+	width: min(100% - var(--space-8), var(--container-max-width));
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+}
+
+.container {
+	width: min(100% - var(--space-8), var(--container-max-width));
+	max-width: var(--container-max-width);
+	margin-inline: auto;
+}

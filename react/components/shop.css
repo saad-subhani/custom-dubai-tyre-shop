@@ -1,0 +1,52 @@
+.custom-dubai-shop {
+	padding: var(--space-8) 0;
+}
+
+.custom-dubai-shop__inner {
+	max-width: var(--container-max-width);
+	margin: 0 auto;
+	padding: 0 var(--space-4);
+}
+
+.custom-dubai-shop__header {
+	margin-bottom: var(--space-6);
+}
+
+.custom-dubai-shop__title {
+	font-family: var(--font-family-heading);
+	font-size: var(--font-size-h2);
+	font-weight: var(--font-weight-bold);
+	color: var(--color-text);
+	margin: 0 0 var(--space-2);
+}
+
+.custom-dubai-shop__count {
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-light);
+	margin: 0;
+}
+
+.custom-dubai-shop__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: var(--space-4);
+}
+
+.custom-dubai-shop__card {
+	min-width: 0;
+}
+
+.custom-dubai-shop__empty {
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-md);
+	color: var(--color-text-light);
+	text-align: center;
+	padding: var(--space-12) 0;
+}
+
+@media (max-width: 640px) {
+	.custom-dubai-shop__grid {
+		grid-template-columns: 1fr;
+	}
+}

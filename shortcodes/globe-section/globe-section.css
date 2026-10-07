@@ -1,0 +1,200 @@
+/**
+ * Globe section component styles.
+ *
+ * Every colour, size and font comes from a global token in style.css.
+ * Mobile first: single column, two columns from the 1024px breakpoint up.
+ */
+
+.custom-dubai-globe-section {
+	position: relative;
+	padding-block: var(--space-16);
+	background: var(--color-globe-section-bg);
+	color: var(--color-text);
+}
+
+.custom-dubai-globe-section__inner {
+	display: grid;
+	gap: var(--space-10);
+	align-items: center;
+}
+
+.custom-dubai-globe-section__eyebrow {
+	margin: 0 0 var(--space-4);
+	color: var(--color-accent);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.custom-dubai-globe-section__heading {
+	margin: 0;
+	color: var(--color-text);
+	font-size: var(--font-size-section-heading);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-section-heading);
+	text-wrap: balance;
+}
+
+.custom-dubai-globe-section__text {
+	margin: var(--space-4) 0 0;
+	color: var(--color-text-light);
+	font-size: var(--font-size-lg);
+}
+
+.custom-dubai-globe-section__points {
+	display: grid;
+	gap: var(--space-3);
+	margin: var(--space-6) 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.custom-dubai-globe-section__point {
+	display: flex;
+	gap: var(--space-3);
+	align-items: flex-start;
+	color: var(--color-text);
+}
+
+.custom-dubai-globe-section__point::before {
+	flex: none;
+	width: 0.55rem;
+	height: 0.3rem;
+	margin-top: 0.4rem;
+	border-bottom: 2px solid var(--color-accent);
+	border-left: 2px solid var(--color-accent);
+	transform: rotate(-45deg);
+	content: "";
+}
+
+.custom-dubai-globe-section__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-4);
+	align-items: center;
+	margin-top: var(--space-8);
+}
+
+.custom-dubai-globe-section__button {
+	padding: var(--space-3) var(--space-6);
+	border-radius: var(--radius-sm);
+	background: var(--color-accent);
+	color: var(--color-primary);
+	font-weight: var(--font-weight-semibold);
+	text-decoration: none;
+}
+
+.custom-dubai-globe-section__button:hover,
+.custom-dubai-globe-section__button:focus-visible {
+	background: var(--color-accent-dark);
+	color: var(--color-secondary);
+}
+
+.custom-dubai-globe-section__link {
+	color: var(--color-text);
+	text-decoration: underline;
+	text-underline-offset: 0.25rem;
+}
+
+.custom-dubai-globe-section__link:hover,
+.custom-dubai-globe-section__link:focus-visible {
+	color: var(--color-accent-dark);
+}
+
+.custom-dubai-globe-section__button:focus-visible,
+.custom-dubai-globe-section__link:focus-visible {
+	outline: 2px solid var(--color-accent-light);
+	outline-offset: 3px;
+}
+
+/* Globe host. The glow doubles as the placeholder before WebGL takes over. */
+.custom-dubai-globe-section__globe {
+	position: relative;
+	width: min(100%, 28rem);
+	justify-self: center;
+	aspect-ratio: 1;
+	background: transparent;
+}
+
+.custom-dubai-globe-section__canvas {
+	position: absolute;
+	inset: 0;
+}
+
+.custom-dubai-globe-section__canvas canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* Overlay the globe engine projects the emirate names onto. */
+.custom-dubai-globe-section__labels {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.custom-dubai-globe-section__pin {
+	display: block;
+	margin-left: 3.5rem;
+	padding: var(--space-1) var(--space-3);
+	border: 1px solid var(--color-globe-section-line);
+	border-radius: var(--radius-sm);
+	background: var(--color-globe-section-panel);
+	color: var(--color-secondary);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-semibold);
+	line-height: 1.5;
+	white-space: nowrap;
+	transition: opacity 240ms ease;
+}
+
+.custom-dubai-globe-section__pin::before {
+	display: inline-block;
+	width: 0.4rem;
+	height: 0.4rem;
+	margin-right: var(--space-2);
+	border-radius: 50%;
+	background: var(--color-globe-highlight-edge);
+	content: "";
+}
+
+/*
+ * The seven emirates sit within a degree of each other, so the names are fanned
+ * into a north-to-south column beside the pin cluster rather than stacked on
+ * top of it. Order follows the coast: Ras Al Khaimah is the northernmost.
+ */
+.custom-dubai-globe-section__pin--ras-al-khaimah { margin-top: -5.5rem; }
+.custom-dubai-globe-section__pin--umm-al-quwain { margin-top: -3.7rem; }
+.custom-dubai-globe-section__pin--ajman { margin-top: -1.9rem; }
+.custom-dubai-globe-section__pin--sharjah { margin-top: -0.1rem; }
+.custom-dubai-globe-section__pin--dubai { margin-top: 1.7rem; }
+.custom-dubai-globe-section__pin--fujairah { margin-top: 3.5rem; }
+.custom-dubai-globe-section__pin--abu-dhabi { margin-top: 5.3rem; }
+
+/* Wide view of the planet: the names would just be clutter. */
+.custom-dubai-globe-section__canvas[data-globe-zoom="far"] .custom-dubai-globe-section__pin {
+	opacity: 0;
+}
+
+/* No WebGL, or the engine chunk could not be fetched. */
+.custom-dubai-globe-section__canvas[data-globe-state="unavailable"] {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	.custom-dubai-globe-section {
+		padding-block: var(--space-24);
+	}
+
+	.custom-dubai-globe-section__inner {
+		grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+		gap: var(--space-12);
+	}
+
+	.custom-dubai-globe-section__globe {
+		max-width: 28rem;
+	}
+}

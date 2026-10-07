@@ -1,0 +1,25 @@
+<div class="custom-dubai-modal custom-dubai-vehicle-modal" data-modal="vehicle" hidden>
+	<button class="custom-dubai-modal__backdrop" type="button" data-modal-close aria-label="Close vehicle selection"></button>
+	<section class="custom-dubai-modal__panel" role="dialog" aria-modal="true" aria-labelledby="custom-dubai-vehicle-modal-title" tabindex="-1">
+		<header class="custom-dubai-modal__header">
+			<div>
+				<h2 class="custom-dubai-modal__title" id="custom-dubai-vehicle-modal-title">Current Vehicle Selection</h2>
+				<p class="custom-dubai-modal__selection" data-current-selection aria-live="polite">Choose make, model, year and engine</p>
+			</div>
+			<button class="custom-dubai-modal__close" type="button" data-modal-close aria-label="Close">&times;</button>
+		</header>
+		<div class="custom-dubai-vehicle-modal__search-wrap">
+			<label class="screen-reader-text" for="custom-dubai-vehicle-search">Search vehicles</label>
+			<input class="custom-dubai-vehicle-modal__search" id="custom-dubai-vehicle-search" type="search" placeholder="Search make, model, year or engine" autocomplete="off" data-vehicle-search>
+		</div>
+		<nav class="custom-dubai-modal__steps custom-dubai-vehicle-modal__steps" role="tablist" aria-label="Vehicle selection steps">
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="make" aria-selected="true">Make</button>
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="model" aria-selected="false">Model</button>
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="year" aria-selected="false">Year</button>
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="engine" aria-selected="false">Engine</button>
+		</nav>
+		<div class="custom-dubai-modal__body">
+			<div class="custom-dubai-vehicle-modal__options" data-options role="listbox" aria-label="Available vehicles"></div>
+		</div>
+	</section>
+</div>

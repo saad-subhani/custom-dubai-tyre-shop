@@ -1,0 +1,20 @@
+<div class="custom-dubai-modal custom-dubai-tyre-modal" data-modal="tyre" hidden>
+	<button class="custom-dubai-modal__backdrop" type="button" data-modal-close aria-label="Close tyre size selection"></button>
+	<section class="custom-dubai-modal__panel" role="dialog" aria-modal="true" aria-labelledby="custom-dubai-tyre-modal-title" tabindex="-1">
+		<header class="custom-dubai-modal__header">
+			<div>
+				<h2 class="custom-dubai-modal__title" id="custom-dubai-tyre-modal-title">Current Selection</h2>
+				<p class="custom-dubai-modal__selection" data-current-selection aria-live="polite">Choose width, height and rim</p>
+			</div>
+			<button class="custom-dubai-modal__close" type="button" data-modal-close aria-label="Close">&times;</button>
+		</header>
+		<nav class="custom-dubai-modal__steps" role="tablist" aria-label="Tyre size steps">
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="width" aria-selected="true">Width</button>
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="height" aria-selected="false">Height</button>
+			<button class="custom-dubai-modal__step" type="button" role="tab" data-step="rim" aria-selected="false">Rim</button>
+		</nav>
+		<div class="custom-dubai-modal__body">
+			<div class="custom-dubai-modal__options" data-options role="listbox" aria-label="Available tyre sizes"></div>
+		</div>
+	</section>
+</div>
